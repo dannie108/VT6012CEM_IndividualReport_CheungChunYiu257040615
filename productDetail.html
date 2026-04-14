@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenovo (11DTS00D00) - Ceoshop.com.hk</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #f8f8f8; 
+            color: #333; 
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: #2ea3f2;
+            color: white;
+            padding: 12px 0;
+            font-size: 15px;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .logo { font-size: 24px; font-weight: bold; }
+        .contact-info span { margin-right: 25px; }
+        .contact-info a { color: white; text-decoration: none; }
+        .main-nav ul { display: flex; list-style: none; gap: 25px; }
+        .main-nav a { color: white; text-decoration: none; font-weight: 500; }
+        .cart {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            background: #2ea3f2;
+            color: white;
+            width: 220px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            height: calc(100vh - 56px);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar li { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+        .sidebar a { color: white; text-decoration: none; display: block; }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 30px;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .product-container {
+            display: flex;
+            gap: 40px;
+            background: white;
+            padding: 25px;
+            border: 1px solid #ddd;
+        }
+
+        .product-image {
+            width: 380px;
+            height: 380px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+        }
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #003087;
+        }
+
+        .specs {
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .add-quote-btn {
+            background: #2ea3f2;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .description {
+            margin-top: 40px;
+            background: white;
+            padding: 25px;
+            border: 1px solid #ddd;
+        }
+
+        footer {
+            background: #2ea3f2;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="logo">CEO SHOP</div>
+        <div class="header-inner">
+            
+            <input type="text" class="search-bar" placeholder="搜尋型號或產品名稱..." style="width:400px; padding:8px 15px; border:none; border-radius:4px;">
+
+            <div class="contact-info">
+                <span>☎ +852 2130 9227</span>
+                <a href="mailto:info@ceoshop.com.hk">✉ info@ceoshop.com.hk</a>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">主頁</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                    <li><a href="#">產品分類</a></li>
+                    <li><a href="#">品牌一覽</a></li>
+                    <li><a href="#">索取報價</a></li>
+                </ul>
+            </nav>
+
+            <div class="cart">🛒 0 Items</div>
+        </div>
+    </header>
+
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">網頁寄存</a></li>
+            <li><a href="#">軟件</a></li>
+            <li><a href="#">學校會計服務</a></li>
+            <li><a href="#">會計理帳服務</a></li>
+            <li><a href="#">電腦支援服務</a></li>
+            <li><a href="#">周邊產品</a></li>
+            <li><a href="#">網絡產品</a></li>
+            <li><a href="#">伺服器系列</a></li>
+            <li><a href="#">表格 Forms</a></li>
+            <li><a href="#">聯絡我們</a></li>
+            <li><a href="#">付款方法</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="breadcrumb">
+            首頁 / 辦公電腦 / Lenovo / Lenovo ThinkCentre V/M Series / Lenovo ThinkCentre M70q Series / Lenovo (11DTS00D00)
+        </div>
+
+        <div class="product-container">
+            <!-- 左側圖片 -->
+            <div class="product-image">
+                <img src="./sample.png" alt="Lenovo ThinkCentre M70q">
+            </div>
+
+            <!-- 右側規格 -->
+            <div class="product-info">
+                <h1 class="product-title">Lenovo (11DTS00D00) - Lenovo ThinkCentre M70q</h1>
+
+                <div class="specs">
+                    <p><strong>處理器：</strong> Intel Core i5-10500T</p>
+                    <p><strong>記憶體：</strong> 8GB DDR4-2666 SoDIMM</p>
+                    <p><strong>儲存：</strong> 256GB M.2 PCIe NVMe SSD</p>
+                    <p><strong>顯示輸出：</strong> DP+HDMI, VGA Port</p>
+                    <p><strong>網路：</strong> Intel WiFi 6 AX201 + BT</p>
+                    <p><strong>其他：</strong> TC USB KB/Mouse, Internal Speaker, 65W AC adapter, VESA Mount, W10P</p>
+                    <p><strong>保固：</strong> 3 Years On-site Warranty</p>
+                </div>
+
+                <button class="add-quote-btn">加入報價 / Add to Quote</button>
+            </div>
+        </div>
+
+        <!-- 產品描述 -->
+        <div class="description">
+            <h2>詳細資料</h2>
+            <p><strong>牌子：</strong> Lenovo</p>
+            <p><strong>型號：</strong> 11DTS00D00</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Cyber Power (Hong Kong) Limited | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

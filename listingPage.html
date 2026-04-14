@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>辦公電腦 - Ceoshop.com.hk</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #f8f8f8; 
+            color: #333; 
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: #2ea3f2;
+            color: white;
+            padding: 12px 0;
+            font-size: 15px;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .logo { font-size: 24px; font-weight: bold; }
+        .contact-info span { margin-right: 25px; }
+        .contact-info a { color: white; text-decoration: none; }
+        .main-nav ul { display: flex; list-style: none; gap: 25px; }
+        .main-nav a { color: white; text-decoration: none; font-weight: 500; }
+        .cart {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            background: #2ea3f2;
+            color: white;
+            width: 220px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            height: calc(100vh - 56px);
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar li { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+        .sidebar a { color: white; text-decoration: none; display: block; }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 30px;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            color: #003087;
+            margin-bottom: 20px;
+        }
+
+        /* Listing Container - 關鍵修正：讓左右高度一致 */
+        .listing-container {
+            display: flex;
+            gap: 30px;
+            align-items: stretch;        /* 讓左右兩個區塊高度相同 */
+        }
+
+        /* Filter Panel */
+        .filter-panel {
+            width: 240px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            height: 100%;                /* 填滿高度 */
+        }
+        .filter-panel h3 {
+            margin-bottom: 15px;
+            color: #003087;
+        }
+
+        /* 細節分類 */
+        .detail-categories {
+            margin-bottom: 25px;
+        }
+        .detail-categories ul { list-style: none; }
+        .detail-categories li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-categories a {
+            color: #333;
+            text-decoration: none;
+        }
+        .detail-categories a:hover {
+            color: #2ea3f2;
+            text-decoration: underline;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+        .model-code { color: #d32f2f; font-weight: bold; font-size: 15px; }
+        .product-card button {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: #2ea3f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        footer {
+            background: #2ea3f2;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="logo">CEO SHOP</div>
+        <div class="header-inner">
+            
+            <input type="text" placeholder="搜尋型號或產品名稱..." style="width:400px; padding:8px 15px; border:none; border-radius:4px;">
+
+            <div class="contact-info">
+                <span>☎ +852 2130 9227</span>
+                <a href="mailto:info@ceoshop.com.hk">✉ info@ceoshop.com.hk</a>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">主頁</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                    <li><a href="#">產品分類</a></li>
+                    <li><a href="#">品牌一覽</a></li>
+                    <li><a href="#">索取報價</a></li>
+                </ul>
+            </nav>
+
+            <div class="cart">🛒 0 Items</div>
+        </div>
+    </header>
+
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">網頁寄存</a></li>
+            <li><a href="#">軟件</a></li>
+            <li><a href="#">學校會計服務</a></li>
+            <li><a href="#">會計理帳服務</a></li>
+            <li><a href="#">電腦支援服務</a></li>
+            <li><a href="#">周邊產品</a></li>
+            <li><a href="#">網絡產品</a></li>
+            <li><a href="#">伺服器系列</a></li>
+            <li><a href="#">表格 Forms</a></li>
+            <li><a href="#">聯絡我們</a></li>
+            <li><a href="#">付款方法</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="breadcrumb">首頁 / 辦公電腦</div>
+        <h2 class="page-title">辦公電腦</h2>
+
+        <div class="listing-container">
+            <!-- 左側 Filter Panel -->
+            <div class="filter-panel">
+                <!-- 細節分類 -->
+                <div class="detail-categories">
+                    <h3>細節分類</h3>
+                    <ul>
+                        <li><a href="listing.html">辦公電腦</a></li>
+                        <li><a href="listing.html">迷你電腦</a></li>
+                        <li><a href="listing.html">All-in-One 一體機</a></li>
+                        <li><a href="listing.html">伺服器</a></li>
+                        <li><a href="listing.html">網絡設備</a></li>
+                        <li><a href="listing.html">周邊產品</a></li>
+                        <li><a href="listing.html">企業軟件</a></li>
+                    </ul>
+                </div>
+
+                <!-- 品牌 -->
+                <h3>品牌</h3>
+                <ul style="list-style:none; font-size:14px;">
+                    <li><label><input type="checkbox" checked> Lenovo</label></li>
+                    <li><label><input type="checkbox"> HP</label></li>
+                    <li><label><input type="checkbox"> Dell</label></li>
+                    <li><label><input type="checkbox"> HPE</label></li>
+                </ul>
+            </div>
+
+            <!-- 產品列表 -->
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="./sample.png" alt="">
+                    <h4>Lenovo ThinkCentre M70s</h4>
+                    <p class="model-code">11DCS00B00</p>
+                    <p>Intel i5 • 16GB • 512GB SSD</p>
+                    <a href="./productDetail.html">
+                        <button>Detail</button>
+                    </a>
+                    
+                </div>
+                <div class="product-card">
+                    <<img src="./sample.png" alt="">
+                    <h4>HP EliteDesk 800 G6</h4>
+                    <p class="model-code">5CG12AV</p>
+                    <p>Intel i7 • 16GB • 512GB SSD</p>
+                     <a href="./productDetail.html">
+                        <button>Detail</button>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <img src="./sample.png" alt="">
+                    <h4>Dell OptiPlex 7090</h4>
+                    <p class="model-code">D7090-1234</p>
+                    <p>Intel i5 • 8GB • 256GB SSD</p>
+                     <a href="./productDetail.html">
+                        <button>Detail</button>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <img src="./sample.png" alt="">
+                    <h4>Lenovo ThinkCentre M80s</h4>
+                    <p class="model-code">11DCS00B01</p>
+                    <p>Intel i7 • 32GB • 1TB SSD</p>
+                     <a href="./productDetail.html">
+                        <button>Detail</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Cyber Power (Hong Kong) Limited | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
