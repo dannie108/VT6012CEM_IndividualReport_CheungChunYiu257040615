@@ -1,0 +1,273 @@
+/* App.css - Consolidated */
+
+/* ========== Variables & Reset ========== */
+:root{
+  --brand-blue: #2ea3f2;
+  --dark-blue: #003087;
+  --muted: #666;
+  --accent: #d32f2f;
+  --border: #ddd;
+  --bg: #f8f8f8;
+  --text: #333;
+  --white: #fff;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ========== Base / Body ========== */
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ========== Header ========== */
+.top-header {
+  background: var(--brand-blue);
+  color: var(--white);
+  padding: 12px 0;
+  font-size: 15px;
+}
+
+/* header-inner: 保守設定，若你要靠右可調 margin */
+.header-inner {
+  max-width: 85.5%;
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  gap: 16px;
+}
+
+.right-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.contact-info span { margin-right: 25px; }
+.contact-info a { color: var(--white); text-decoration: none; }
+.main-nav ul { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
+.main-nav a { color: var(--white); text-decoration: none; font-weight: 500; }
+.cart {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* logo */
+.logo { font-size: 24px; font-weight: bold; margin: 20px; }
+
+/* ========== Layout: Sidebar / Main ========== */
+/* Sidebar base */
+.sidebar {
+  background: var(--brand-blue);
+  color: var(--white);
+  width: 220px;
+  position: fixed;
+  padding-top: 20px;
+  height: 100%;
+  /* overflow-y: auto; */
+  /* box-sizing: border-box; */
+
+}
+
+/* Reset lists inside sidebar */
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
+
+/* Sidebar items */
+.sidebar li {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  position: relative;
+}
+.sidebar a { color: var(--white); text-decoration: none; display: block; }
+.sidebar a:hover { background: #00246b; }
+
+/* Prevent text overflow */
+.sidebar, .sidebar * { box-sizing: border-box; }
+.sidebar a, .sidebar .item-label { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+
+/* ========== Flyout (side panel) ========== */
+/* Mark items that have flyouts with .has-flyout in JSX */
+.has-flyout { cursor: pointer; }
+
+/* Flyout container (single unified rule) */
+.sidebar .flyout {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  margin-left: 12px;
+  width: 360px;                 /* adjust as needed */
+  background: #0b2a66;
+  color: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  padding: 14px;
+  display: flex;
+  gap: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 60;
+  pointer-events: none;         /* avoid flicker while hidden */
+  box-sizing: border-box;
+}
+
+/* Flyout content */
+.sidebar .flyout ul { list-style: none; margin: 0; padding: 0; }
+.sidebar .flyout li { padding: 6px 0; }
+.sidebar .flyout a { color: var(--white); text-decoration: none; display: block; }
+.sidebar .flyout a:hover { text-decoration: underline; }
+
+/* Show flyout on hover (or focus-within for keyboard) */
+.sidebar .has-flyout:hover > .flyout,
+.sidebar .has-flyout:focus-within > .flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+}
+
+/* Optional: top-aligned variant (use .flyout--top when needed) */
+.flyout--top {
+  top: auto;
+  bottom: 0;
+  transform: translateY(0) translateX(-8px);
+}
+.flyout--top:hover { transform: translateY(0) translateX(0); }
+
+/* Hide flyout on small screens (hover unreliable) */
+@media (max-width: 768px) {
+  .flyout { display: none !important; }
+  .sidebar { position: static; width: 100%; height: auto; top: 0; }
+  .main-content { margin-left: 0; padding: 20px; }
+}
+
+/* ========== Main content area ========== */
+.main-content {
+  margin-left: 220px;
+  padding: 30px;
+  flex: 1;
+}
+
+/* breadcrumb / page title */
+.breadcrumb { color: #666; font-size: 14px; margin-bottom: 15px; }
+.page-title { font-size: 26px; color: var(--dark-blue); margin-bottom: 20px; }
+
+/* ========== Listing / Filter / Grid ========== */
+.listing-container { display: flex; gap: 30px; align-items: stretch; }
+
+.filter-panel {
+  width: 240px;
+  background: var(--white);
+  padding: 20px;
+  border: 1px solid var(--border);
+  height: 100%;
+}
+.filter-panel h3 { margin-bottom: 15px; color: var(--dark-blue); }
+
+.detail-categories { margin-bottom: 25px; }
+.detail-categories ul { list-style: none; margin: 0; padding: 0; }
+.detail-categories li { padding: 8px 0; border-bottom: 1px solid #eee; }
+.detail-categories a { color: var(--text); text-decoration: none; }
+.detail-categories a:hover { color: var(--brand-blue); text-decoration: underline; }
+
+/* product grid */
+.product-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.product-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+.product-card:hover { box-shadow: var(--shadow); }
+.product-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+.model-code { color: var(--accent); font-weight: bold; font-size: 15px; }
+.product-card button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: var(--brand-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ========== Product Detail ========== */
+.product-container {
+  display: flex;
+  gap: 40px;
+  background: var(--white);
+  padding: 25px;
+  border: 1px solid var(--border);
+}
+.product-image {
+  width: 380px;
+  height: 380px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+}
+.product-image img { max-width: 100%; max-height: 100%; }
+.product-info { flex: 1; }
+.product-title { font-size: 22px; margin-bottom: 15px; color: var(--dark-blue); }
+.specs { line-height: 1.8; font-size: 15px; }
+.add-quote-btn {
+  background: var(--brand-blue);
+  color: var(--white);
+  border: none;
+  padding: 14px 32px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 25px;
+}
+.description {
+  margin-top: 40px;
+  background: var(--white);
+  padding: 25px;
+  border: 1px solid var(--border);
+}
+
+/* ========== Footer ========== */
+footer {
+  background: var(--brand-blue);
+  color: var(--white);
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+
+/* ========== Responsive tweaks ========== */
+@media (max-width: 1024px) {
+  .sidebar { position: static; width: 100%; height: auto; top: 0; }
+  .main-content { margin-left: 0; padding: 20px; }
+  .product-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .product-image { width: 100%; height: auto; }
+  .product-container { flex-direction: column; gap: 20px; }
+}
