@@ -183,7 +183,7 @@ const ListingPage: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+        <div className="listing-grid" style={{ marginTop: 12 }}>
           {filteredProducts.map((p: Product) => (
             <div
               key={p.id}

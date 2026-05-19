@@ -31,7 +31,9 @@ const Home: React.FC = () => {
   return (
     <div className="main-content">
       <div className="categories-bar" aria-label="主要產品分類">
+        <h2>分類 Category</h2>
         <div className="categories-inner">
+          
           {categories.map((c) => (
             <Link
               key={c.key}
@@ -39,7 +41,7 @@ const Home: React.FC = () => {
               className="category-card"
               aria-label={`前往 ${c.title} 分類`}
             >
-              <img src={c.img} alt={c.title} style={{ width: '100%', height: 120, objectFit: 'cover' }} />
+              <img src={c.img} alt={c.title} style={{ width: '100%', height: 250, objectFit: 'cover' }} />
               <div className="category-body">
                 <h3>{c.title}</h3>
                 <p>{c.desc}</p>
@@ -51,7 +53,7 @@ const Home: React.FC = () => {
 
       {/* 熱門產品 */}
       <section style={{ marginTop: 18 }}>
-        <h2>熱門產品</h2>
+        <h2>熱門產品 Hot sale product</h2>
 
         <div
           className="product-grid"
@@ -74,11 +76,11 @@ const Home: React.FC = () => {
               style={{ cursor: 'pointer' }}
             >
               <h4 style={{ marginBottom: 8 }}>{p.title}</h4>
-              <img src={p.img} alt={p.title} style={{ width: '100%', height: 160, objectFit: 'cover' }} />
+              <img src={p.img} alt={p.title} style={{ width: '100%', height: 400, objectFit: 'cover' }} />
               <p className="model-code" style={{ margin: '8px 0' }}>{p.model}</p>
               <p style={{ marginBottom: 12 }}>{p.specs}</p>
 
-              {/* Detail 按鈕仍為 Link，並帶 state；stopPropagation 避免觸發父容器 onClick */}
+              
               <Link
                 to={`/product/${encodeURIComponent(p.id)}`}
                 state={baseLinkState}

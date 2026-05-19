@@ -199,7 +199,7 @@ const Header: React.FC = () => {
           <nav className="main-nav" aria-label="主選單">
             <ul>
               <li>
-                <Link to="/">主頁 / homepage</Link>
+                <Link to="/">主頁</Link>
               </li>
             </ul>
           </nav>
