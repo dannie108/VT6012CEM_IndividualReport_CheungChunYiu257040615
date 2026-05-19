@@ -167,6 +167,7 @@ body {
   transition: transform 0.18s ease, border-color 0.18s;
   pointer-events: none;
   display: block;
+  z-index: 99;
 }
 .sidebar .has-flyout:hover > .item-label::after,
 .sidebar .has-flyout:focus-within > .item-label::after {
@@ -319,6 +320,70 @@ body {
   padding: 25px;
   border: 1px solid var(--border);
 }
+/* 分類列固定在 main-content 內頂端 */
+.categories-bar {
+  position: sticky;
+  top: 12px;
+  z-index: 40; /* 低於 flyout 的 999 */
+  padding: 8px 0;
+  justify-content: space-between;
+  /* 與 sidebar 寬度一致，避免覆蓋 */
+  width: calc(100% - 220px); /* 只佔 main-content 區域 */
+}
+
+/* 內部容器：一行 4 欄，桌面顯示 */
+.categories-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.product-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 6px;
+  transition: transform .12s ease, box-shadow .12s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.product-card:focus { outline: 3px solid rgba(46,163,242,0.25); outline-offset: 2px; }
+
+.detail-cta { cursor: pointer; }
+
+/* 分類卡片外觀（可依你現有樣式微調） */
+.category-card {
+  display: block;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  height: 220px;
+}
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.category-card img { display: block; width: 100%; height: auto; }
+.category-card .category-body { padding: 10px; }
+.category-card h3 { margin: 0 0 6px 0; font-size: 16px; color: #000000; }
+.category-card p { margin: 0; font-size: 13px; color: rgba(0, 0, 0, 0.85); }
+
+/* 響應式：小螢幕改成 2 欄或 1 欄 */
+@media (max-width: 900px) {
+  .categories-inner { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .categories-inner { grid-template-columns: 1fr; position: static; }
+  .categories-bar { position: static; top: auto; padding: 0; }
+}
 
 /* ========== Footer ========== */
 footer {
@@ -328,6 +393,7 @@ footer {
   padding: 20px;
   margin-top: auto;
 }
+
 
 /* ========== Responsive tweaks ========== */
 @media (max-width: 1024px) {
