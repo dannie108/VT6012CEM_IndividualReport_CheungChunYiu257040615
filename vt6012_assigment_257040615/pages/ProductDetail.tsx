@@ -1,6 +1,6 @@
 // src/pages/ProductDetail.tsx
 import React from 'react';
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { products, categories } from '../src/data/products'; // 確認 categories 有 export
 
 const QUOTE_KEY = 'quoteItems';
@@ -41,14 +41,13 @@ const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
   const location = useLocation();
-  const navigate = useNavigate();
 
   // state from ListingPage (if present)
   const state = (location.state as any) || {};
   const from = state.from || null; // e.g. "/listing" or "/listing?..."
   const fromCategory = state.category || null;
   const fromSubcategory = state.subcategory || null;
-  const fromQ = state.q || null;
+  
 
   if (!product) return <div className="main-content">找不到產品</div>;
 

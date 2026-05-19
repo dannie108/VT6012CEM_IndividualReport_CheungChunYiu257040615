@@ -35,7 +35,7 @@ const ListingPage: React.FC = () => {
   const initialCategory = query.get('category') || '';
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const [activeSubcategory, setActiveSubcategory] = useState<string>('');
-  const [searchQ, setSearchQ] = useState<string>('');
+  const [searchQ] = useState<string>('');
 
   React.useEffect(() => {
     if (initialCategory) {

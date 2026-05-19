@@ -1,10 +1,11 @@
 /* ============================================================
-   App.css - 整理後完整檔案（各區塊以註解分隔，直接貼回使用）
-   說明：每個區塊以 /* ===== Name ===== *\/ 標示，方便你替換或微調。
+   App.css - Consolidated and cleaned (English comments)
+   - Each section is separated with a clear comment header.
+   - Paste this entire file to replace your current App.css.
    ============================================================ */
 
 /* ========== Variables & Reset ========== */
-:root{
+:root {
   --brand-blue: #2ea3f2;
   --dark-blue: #003087;
   --muted: #666;
@@ -17,16 +18,14 @@
   --focus-outline: rgba(46,163,242,0.25);
 }
 
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* ========== Base / Body ========== */
 body {
   font-family: Arial, sans-serif;
-  background: var(--brand-blue); /* page background filled with footer color */
+  background: var(--brand-blue); /* page background color */
   color: var(--text);
   line-height: 1.5;
   display: flex;
@@ -34,7 +33,7 @@ body {
   min-height: 100vh;
 }
 
-/* Main content stays as a boxed area with its own background */
+/* Main content area (boxed) */
 .main-content {
   background: var(--bg);
   margin-left: 220px;
@@ -44,8 +43,7 @@ body {
 }
 
 /* ============================================================
-   ===== Header =====
-   Replace the header-related block in your App.css with this
+   Header
    ============================================================ */
 .top-header {
   background: var(--brand-blue);
@@ -65,7 +63,7 @@ body {
   gap: 16px;
 }
 
-/* 搜尋區塊（縮短輸入框，移除按鈕） */
+/* Search area */
 .header-search {
   position: relative;
   display: flex;
@@ -87,10 +85,10 @@ body {
   font-size: 14px;
 }
 
-/* 隱藏任何殘留的 search button（保險） */
+/* Hide any leftover search button */
 .search-btn { display: none !important; }
 
-/* 建議下拉 */
+/* Search suggestions dropdown */
 .search-suggestions {
   position: absolute;
   left: 0;
@@ -117,7 +115,7 @@ body {
   background: #f0f8ff;
 }
 
-/* 右側群組 */
+/* Right-side group in header */
 .right-group {
   margin-left: auto;
   display: flex;
@@ -136,7 +134,7 @@ body {
   font-size: 14px;
 }
 
-/* header 內連結與 focus 可及性 */
+/* Accessibility focus styles for header */
 .header-inner a { text-decoration: none; color: inherit; }
 .header-inner a:focus-visible,
 .header-search-input:focus-visible,
@@ -145,22 +143,12 @@ body {
   outline-offset: 2px;
 }
 
-/* 響應式 */
-@media (max-width: 900px) {
-  .header-search-input { width: 260px; max-width: 50vw; }
-  .main-nav { display: none; }
-  .contact-info { display: none; }
-}
-@media (max-width: 480px) {
-  .header-search-input { width: 180px; max-width: 60vw; }
-}
-
-/* logo */
+/* Logo */
 .logo { font-size: 24px; font-weight: bold; margin: 20px; }
 
 /* ============================================================
-   ===== Sidebar & Flyout =====
-   Keep flyout hover/focus behavior and hover-area extension
+   Sidebar & Flyout
+   - Left navigation and flyout panels
    ============================================================ */
 .sidebar {
   background: var(--brand-blue);
@@ -186,6 +174,7 @@ body {
 
 .has-flyout { cursor: pointer; }
 
+/* Flyout panel */
 .sidebar .flyout {
   position: absolute;
   left: calc(100% + 8px);
@@ -211,7 +200,6 @@ body {
 .sidebar .flyout li { padding: 6px 0; }
 .sidebar .flyout a { color: var(--white); text-decoration: none; display: block; }
 
-
 .sidebar .has-flyout:hover > .flyout,
 .sidebar .has-flyout:focus-within > .flyout,
 .sidebar .has-flyout > .flyout:hover {
@@ -222,7 +210,7 @@ body {
   z-index: 999;
 }
 
-/* Hover area extension and arrow indicator */
+/* Hover area extension and arrow indicator for flyouts */
 .sidebar .item-label::after { display: none; }
 .sidebar .has-flyout > .item-label { padding-right: 28px; }
 .sidebar .has-flyout::before {
@@ -282,12 +270,14 @@ body {
   pointer-events: auto;
 }
 
+/* Top-aligned variant */
 .flyout--top {
   top: auto;
   bottom: 0;
   transform: translateY(0);
 }
 
+/* Hide flyouts on small screens */
 @media (max-width: 768px) {
   .flyout { display: none !important; }
   .sidebar { position: static; width: 100%; height: auto; top: 0; }
@@ -295,7 +285,7 @@ body {
 }
 
 /* ============================================================
-   ===== Breadcrumb / Page Title =====
+   Breadcrumb / Page Title
    ============================================================ */
 .breadcrumb { color: #666; font-size: 14px; margin-bottom: 15px; }
 
@@ -303,7 +293,6 @@ body {
   text-decoration: none;
   color: var(--dark-blue);
 }
-
 
 .breadcrumb a:focus-visible {
   outline: 3px solid var(--focus-outline);
@@ -313,7 +302,7 @@ body {
 .page-title { font-size: 26px; color: var(--dark-blue); margin-bottom: 20px; }
 
 /* ============================================================
-   ===== Listing / Filter / Grid =====
+   Listing / Filter / Grid
    ============================================================ */
 .listing-container { display: flex; gap: 30px; align-items: stretch; }
 
@@ -332,7 +321,7 @@ body {
 .detail-categories a { color: var(--text); text-decoration: none; }
 .detail-categories a:hover { color: var(--brand-blue); }
 
-/* product grid */
+/* Product grid (general) */
 .product-grid {
   flex: 1;
   display: grid;
@@ -340,7 +329,7 @@ body {
   gap: 20px;
 }
 
-/* Unified button base for consistency */
+/* Unified button base */
 .btn {
   display: inline-block;
   padding: 10px 16px;
@@ -358,7 +347,7 @@ body {
 }
 
 /* ============================================================
-   ===== Product Listing Card =====
+   Product Listing Card
    ============================================================ */
 .product-card {
   background: var(--white);
@@ -387,10 +376,9 @@ body {
 }
 
 /* ============================================================
-   ===== Categories Grid & Category Card =====
+   Categories Grid & Category Card
+   - Prevent link underline artifacts and ensure image-first layout
    ============================================================ */
-/* ===== Categories grid & category-card (replace this whole block in App.css) ===== */
-
 .categories-inner,
 .categories {
   display: grid;
@@ -401,7 +389,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Card wrapper is a Link (anchor). Prevent default underline and keep it in-flow */
+/* Card wrapper (Link) — keep in flow and remove underline */
 .category-card {
   display: flex;
   flex-direction: column;
@@ -413,30 +401,27 @@ body {
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  text-decoration: none;    /* ensure link wrapper doesn't show underline */
+  text-decoration: none;
   color: inherit;
 }
 
-/* If the card contains nested anchors, ensure they also don't underline */
+/* Ensure nested anchors don't show underline */
 .category-card a {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-/* Image: fill horizontally, remove border-bottom that looks like an underline */
+/* Image fills horizontally; remove border-bottom that looks like an underline */
 .category-card img {
   display: block;
   width: 100%;
   height: 260px;
   object-fit: cover;
   object-position: center;
-  border-bottom: none;      /* remove visual "underline" */
+  border-bottom: none;
   vertical-align: middle;
 }
-
-/* Optional subtle separator under image (use instead of border-bottom if desired) */
-/* .category-card .image-separator { height: 1px; background: rgba(0,0,0,0.04); width: 100%; } */
 
 .category-card .category-body {
   padding: 10px;
@@ -473,33 +458,23 @@ body {
 .category-card a:focus-visible {
   outline: 3px solid rgba(46,163,242,0.18);
   outline-offset: 2px;
-  text-decoration: none;    /* ensure focus doesn't reintroduce underline */
+  text-decoration: none;
 }
 
-/* Defensive overrides in case a global rule forces underlines/borders */
+/* Defensive overrides in case global rules force underlines/borders */
 .category-card,
 .category-card * {
   text-decoration: none !important;
   border-bottom: none !important;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .category-card img { height: 200px; }
-}
-@media (max-width: 480px) {
-  .categories, .categories-inner { grid-template-columns: 1fr; }
-  .category-card img { height: 160px; }
-}
-
-
 /* ============================================================
-   ===== Product Detail (choose one of the two blocks below) =====
-   A: Original left-image layout
-   B: Image-first banner layout (image fills horizontally)
+   Product Detail
+   - A: Original left-image layout (default)
+   - B: Image-first banner layout (commented out; enable if needed)
    ============================================================ */
 
-/* ------------------ A: Original left-image layout ------------------ */
+/* A: Original left-image layout */
 .product-container {
   display: flex;
   gap: 40px;
@@ -538,72 +513,8 @@ body {
   padding: 25px;
   border: 1px solid var(--border);
 }
-/* ===== Listing grid 固定 4 欄（不考慮響應式） ===== */
 
-/* ===== Listing grid 固定 4 欄並放大卡片 ===== */
-
-.listing-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 300px); /* 每欄寬度由 240px 改為 300px */
-  gap: 20px;
-  justify-content: start;    /* 靠左排列，右側保留空間 */
-  align-items: start;
-  width: 100%;
-  box-sizing: border-box;
-  grid-auto-rows: auto;
-}
-
-/* 卡片放大，保持固定大小 */
-.listing-grid .listing-item {
-  width: 300px;               /* 與 grid-template-columns 一致 */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 8px;
-  background: var(--white);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-
-/* hover 效果 */
-.listing-grid .listing-item:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-4px);
-}
-
-/* focus 效果 */
-.listing-grid .listing-item:focus-visible {
-  outline: 3px solid var(--focus-outline);
-  outline-offset: 2px;
-}
-
-/* 圖片放大一點 */
-.listing-grid .listing-item img {
-  width: 100%;
-  height: 160px;              /* 原本 120px → 放大 */
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
-}
-
-/* 文字間距微調 */
-.listing-grid .listing-item h4 { margin: 8px 0; font-size: 17px; }
-.listing-grid .listing-item p { margin: 6px 0; font-size: 14px; }
-
-/* 按鈕區域保持整齊 */
-.listing-grid .listing-item button {
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-
-/* 若容器寬度不足以放下 4 個 240px，grid 會自動換行並保持卡片寬度 */
-
-/* ------------------ B: Image-first banner layout (uncomment to use) ------------------
+/* B: Image-first banner layout (uncomment to use)
 .product-container {
   display: block;
   background: var(--white);
@@ -646,10 +557,75 @@ body {
 }
 @media (min-width: 1200px) { .product-image { height: 480px; } }
 @media (max-width: 720px) { .product-image { height: 260px; } .product-info { padding: 14px; } .description { padding: 14px; } }
-------------------------------------------------------------------------------- */
+*/
 
 /* ============================================================
-   ===== Footer =====
+   Listing grid (fixed 4 columns, enlarged cards)
+   - Non-responsive version (keeps fixed card size)
+   ============================================================ */
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 300px); /* 4 columns, 300px each */
+  gap: 20px;
+  justify-content: start;    /* left aligned; right side remains empty if fewer items */
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+  grid-auto-rows: auto;
+  padding: 0;
+}
+
+/* Listing item card */
+.listing-grid .listing-item {
+  width: 300px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--white);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+/* Hover / focus for listing items */
+.listing-grid .listing-item:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+.listing-grid .listing-item:focus-visible {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Listing item image and text */
+.listing-grid .listing-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+.listing-grid .listing-item h4 { margin: 8px 0; font-size: 17px; }
+.listing-grid .listing-item p { margin: 6px 0; font-size: 14px; }
+
+/* Buttons inside listing items */
+.listing-grid .listing-item button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Prevent inline styles from overriding card width (defensive) */
+.listing-grid .listing-item[style] {
+  width: 300px !important;
+}
+
+/* ============================================================
+   Footer
    ============================================================ */
 footer {
   width: 100%;
@@ -665,11 +641,12 @@ footer .footer-inner {
   margin: 0 auto;
   padding: 0 20px;
 }
-footer a { color: var(--white);  }
+footer a { color: var(--white); }
 footer a:focus-visible { outline: 3px solid rgba(255,255,255,0.18); outline-offset: 2px; }
 
 /* ============================================================
-   ===== Responsive tweaks (global) =====
+   Responsive tweaks (kept minimal)
+   - These rules only adjust layout for narrow screens where necessary
    ============================================================ */
 @media (max-width: 1024px) {
   .sidebar { position: static; width: 100%; height: auto; top: 0; }
