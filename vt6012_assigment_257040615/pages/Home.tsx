@@ -78,7 +78,7 @@ const Home: React.FC = () => {
               <h4 style={{ marginBottom: 8 }}>{p.title}</h4>
               <img src={p.img} alt={p.title} style={{ width: '100%', height: 400, objectFit: 'cover' }} />
               <p className="model-code" style={{ margin: '8px 0' }}>{p.model}</p>
-              <p style={{ marginBottom: 12 }}>{p.specs}</p>
+              <p style={{ marginBottom: 5 }}>{p.specs}</p>
 
               
               <Link

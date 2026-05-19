@@ -133,8 +133,6 @@ const ProductDetail: React.FC = () => {
             </ul>
           )}
 
-          {product.specs && <p style={{ marginTop: 12 }}><strong>規格摘要：</strong>{product.specs}</p>}
-
           <div style={{ marginTop: 18 }}>
             <button
               onClick={handleAddToQuote}

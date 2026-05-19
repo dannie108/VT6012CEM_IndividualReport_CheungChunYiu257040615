@@ -44,7 +44,6 @@ const ListingPage: React.FC = () => {
     }
   }, [initialCategory]);
 
-  // 計算每個 subcategory 的數量（基於全部 products）
   const subcategoryCounts = useMemo(() => {
     const map: Record<string, number> = {};
     products.forEach((p) => {
@@ -53,7 +52,6 @@ const ListingPage: React.FC = () => {
     return map;
   }, []);
 
-  // 過濾邏輯：子分類優先，其次大分類，最後搜尋字串（可與分類結合）
   const filteredProducts = useMemo(() => {
     const q = searchQ.trim().toLowerCase();
     let list = products.slice();
@@ -77,7 +75,6 @@ const ListingPage: React.FC = () => {
     return list;
   }, [activeCategory, activeSubcategory, searchQ]);
 
-  // 組成要傳給 ProductDetail 的 state（from 為目前路徑 + search，最精準）
   const from = location.pathname + location.search;
   const baseLinkState = {
     from,
@@ -86,7 +83,6 @@ const ListingPage: React.FC = () => {
     q: searchQ || null,
   };
 
-  // 卡片鍵盤導覽支援
   const handleCardKeyDown = (e: React.KeyboardEvent, p: Product) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -94,7 +90,6 @@ const ListingPage: React.FC = () => {
     }
   };
 
-  // 卡片內加入報價（避免觸發卡片點擊）
   const handleAddToQuote = (e: React.MouseEvent, productId: string) => {
     e.stopPropagation();
     const items = getQuoteItems();
@@ -102,7 +97,6 @@ const ListingPage: React.FC = () => {
       const next = [...items, productId];
       setQuoteItems(next);
     } else {
-      // 已存在：不移除，僅重新 set 以觸發事件（或可改為提示）
       setQuoteItems(items);
     }
   };
@@ -135,7 +129,6 @@ const ListingPage: React.FC = () => {
                   <span style={{ fontSize: 12, color: '#666' }}>{isOpen ? '▾' : '▸'}</span>
                 </div>
 
-                {/* 小分類列表（展開時顯示） */}
                 {isOpen && (
                   <ul style={{ listStyle: 'none', paddingLeft: 12, marginTop: 8 }}>
                     {cat.subcategories.map((sub) => {
@@ -183,45 +176,36 @@ const ListingPage: React.FC = () => {
           </div>
         </div>
 
+        {/* 使用 className="listing-grid"，卡片使用 listing-item */}
         <div className="listing-grid" style={{ marginTop: 12 }}>
           {filteredProducts.map((p: Product) => (
             <div
               key={p.id}
+              className="listing-item"
               role="link"
               tabIndex={0}
               aria-label={`查看 ${p.title} 詳情`}
               onKeyDown={(e) => handleCardKeyDown(e, p)}
               onClick={() => navigate(`/product/${encodeURIComponent(p.id)}`, { state: baseLinkState })}
-              style={{
-                border: '1px solid #ddd',
-                padding: 12,
-                borderRadius: 6,
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
             >
               <h4 style={{ margin: '6px 0' }}>{p.title}</h4>
-              <img src={p.img} alt={p.title} style={{ width: '100%', height: 120, objectFit: 'cover' }} />
+              <img src={p.img} alt={p.title} style={{ width: '100%', height: 160, objectFit: 'cover' }} />
               <p style={{ margin: '8px 0' }}>{p.model}</p>
               <p style={{ marginBottom: 8 }}>{p.specs}</p>
 
               <div style={{ marginTop: 'auto', display: 'flex', gap: 8 }}>
-                {/* 查看詳情（Link）仍保留語意，但卡片點擊也會導頁 */}
                 <Link
                   to={`/product/${encodeURIComponent(p.id)}`}
                   state={baseLinkState}
-                  onClick={(e) => e.stopPropagation()} // 防止父容器 onClick 先觸發
+                  onClick={(e) => e.stopPropagation()}
                   style={{ textDecoration: 'none' }}
                 >
-                  <button style={{ padding: '6px 10px', cursor: 'pointer' }}>查看詳情</button>
+                  <button style={{ padding: '8px 12px', cursor: 'pointer' }}>查看詳情</button>
                 </Link>
 
-                {/* 直接在卡片上加入 Add to Quote 按鈕 */}
                 <button
                   onClick={(e) => handleAddToQuote(e, p.id)}
-                  style={{ padding: '6px 10px', cursor: 'pointer', background: '#2ea3f2', color: '#fff', border: 'none', borderRadius: 4 }}
+                  style={{ padding: '8px 12px', cursor: 'pointer', background: '#2ea3f2', color: '#fff', border: 'none', borderRadius: 4 }}
                   aria-label={`將 ${p.title} 加入報價`}
                 >
                   加入報價 / Add to quote

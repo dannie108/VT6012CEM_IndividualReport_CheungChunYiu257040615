@@ -153,7 +153,7 @@ const Header: React.FC = () => {
                 position: 'absolute',
                 left: 0,
                 right: 0,
-                marginTop: 8,
+                marginTop: 290,
                 background: '#fff',
                 border: '1px solid #ddd',
                 borderRadius: 6,
@@ -162,6 +162,7 @@ const Header: React.FC = () => {
                 zIndex: 2000,
                 padding: 8,
                 listStyle: 'none',
+                color: '#111',
               }}
             >
               {suggestions.map((s, idx) => (

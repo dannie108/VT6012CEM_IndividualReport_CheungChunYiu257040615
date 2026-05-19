@@ -95,7 +95,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  margin-top: 8px;
+  margin-top: 20px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -364,7 +364,7 @@ body {
   background: var(--white);
   border: 1px solid var(--border);
   padding: 15px;
-  text-align: center;
+  text-align: left;
   transition: 0.3s;
 }
 .product-card:hover { box-shadow: var(--shadow); }
@@ -540,59 +540,66 @@ body {
 }
 /* ===== Listing grid 固定 4 欄（不考慮響應式） ===== */
 
+/* ===== Listing grid 固定 4 欄並放大卡片 ===== */
+
 .listing-grid {
   display: grid;
-  grid-template-columns: repeat(4, 240px); /* 固定 4 欄，每欄寬 240px，可改成你要的固定寬度 */
-  gap: 16px;
-  justify-content: start;    /* 卡片靠左排列，右側保留空位 */
+  grid-template-columns: repeat(4, 300px); /* 每欄寬度由 240px 改為 300px */
+  gap: 20px;
+  justify-content: start;    /* 靠左排列，右側保留空間 */
   align-items: start;
   width: 100%;
   box-sizing: border-box;
   grid-auto-rows: auto;
-  padding: 0;                 /* 如需內距可調整 */
 }
 
-/* 每個卡片保持固定寬度，不會被拉伸 */
+/* 卡片放大，保持固定大小 */
 .listing-grid .listing-item {
-  width: 240px;               /* 與 grid-template-columns 的值一致 */
+  width: 300px;               /* 與 grid-template-columns 一致 */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
+  padding: 16px;
+  border-radius: 8px;
   background: var(--white);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
-/* 讓卡片在格子內靠左（避免被拉伸或置中） */
-.listing-grid > * {
-  justify-self: start;
-}
-
-/* 如果你希望卡片在容器中置中（而非靠左），把上面 .listing-grid { justify-content: start; }
-   改成 justify-content: center; 並移除 .listing-grid > * 的規則。 */
-
-/* 保留 hover / focus 樣式 */
+/* hover 效果 */
 .listing-grid .listing-item:hover {
   box-shadow: var(--shadow);
   transform: translateY(-4px);
 }
+
+/* focus 效果 */
 .listing-grid .listing-item:focus-visible {
   outline: 3px solid var(--focus-outline);
   outline-offset: 2px;
 }
 
-/* 圖片與按鈕內部樣式（若你原本有 inline style，可移到這裡） */
+/* 圖片放大一點 */
 .listing-grid .listing-item img {
   width: 100%;
-  height: 120px;              /* 與你原本高度一致 */
+  height: 160px;              /* 原本 120px → 放大 */
   object-fit: cover;
   display: block;
+  border-radius: 4px;
 }
-.listing-grid .listing-item h4 { margin: 6px 0; }
-.listing-grid .listing-item p { margin: 6px 0; }
+
+/* 文字間距微調 */
+.listing-grid .listing-item h4 { margin: 8px 0; font-size: 17px; }
+.listing-grid .listing-item p { margin: 6px 0; font-size: 14px; }
+
+/* 按鈕區域保持整齊 */
+.listing-grid .listing-item button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 
 /* 若容器寬度不足以放下 4 個 240px，grid 會自動換行並保持卡片寬度 */
 
