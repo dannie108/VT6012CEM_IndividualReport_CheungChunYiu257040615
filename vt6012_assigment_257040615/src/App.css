@@ -1,4 +1,4 @@
-/* App.css - Cleaned and fixed flyout/arrow interaction */
+/* App.css -整理後版本 */
 
 /* ========== Variables & Reset ========== */
 :root{
@@ -11,6 +11,10 @@
   --text: #333;
   --white: #fff;
   --shadow: 0 4px 12px rgba(0,0,0,0.1);
+  --focus-outline: rgba(46,163,242,0.25);
+}
+html, body {
+  height: 100%;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,7 +22,7 @@
 /* ========== Base / Body ========== */
 body {
   font-family: Arial, sans-serif;
-  background: var(--bg);
+   background: var(--brand-blue);
   color: var(--text);
   line-height: 1.5;
   display: flex;
@@ -26,7 +30,17 @@ body {
   min-height: 100vh;
 }
 
+/* Main content stays as a boxed area with its own background */
+.main-content {
+  background: var(--bg); /* original page background */
+  margin-left: 220px;    /* keep existing layout */
+  padding: 30px;
+  flex: 1 0 auto;
+  box-sizing: border-box;
+}
 /* ========== Header ========== */
+/* ===== Header (paste this whole block into App.css, minimal changes only) ===== */
+
 .top-header {
   background: var(--brand-blue);
   color: var(--white);
@@ -45,6 +59,59 @@ body {
   gap: 16px;
 }
 
+/* 搜尋區塊（僅新增：縮短輸入框、隱藏可能存在的按鈕） */
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.header-search-input {
+  width: 320px;
+  max-width: 40vw;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: none;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  font-size: 14px;
+}
+
+/* 隱藏任何殘留的 search button（保險） */
+.search-btn { display: none !important; }
+
+/* 建議下拉（維持簡潔樣式） */
+.search-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 260px;
+  overflow: auto;
+  z-index: 2000;
+  padding: 6px;
+  list-style: none;
+}
+
+.search-suggestion-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.search-suggestion-item:hover,
+.search-suggestion-item[aria-selected="true"] {
+  background: #f0f8ff;
+}
+
+/* 右側群組（保留原本樣式，僅微調間距一致性） */
 .right-group {
   margin-left: auto;
   display: flex;
@@ -61,6 +128,23 @@ body {
   padding: 6px 14px;
   border-radius: 4px;
   font-size: 14px;
+}
+
+/* header 內連結與 focus 可及性（小幅補強） */
+.header-inner a { text-decoration: none; color: inherit; }
+.header-inner a:focus-visible,
+.header-search-input:focus-visible,
+.search-suggestion-item:focus-visible {
+  outline: 3px solid rgba(46,163,242,0.25);
+  outline-offset: 2px;
+}
+
+/* 響應式：在窄螢幕再縮短輸入框（保留原設計） */
+@media (max-width: 900px) {
+  .header-search-input { width: 260px; max-width: 50vw; }
+}
+@media (max-width: 480px) {
+  .header-search-input { width: 180px; max-width: 60vw; }
 }
 
 /* logo */
@@ -100,7 +184,7 @@ body {
 /* Flyout container (single unified rule) */
 .sidebar .flyout {
   position: absolute;
-  left: calc(100% + 8px);   /* reduce gap and avoid transform X errors */
+  left: calc(100% + 8px);
   top: 50%;
   transform: translateY(-50%);
   width: 360px;
@@ -137,23 +221,22 @@ body {
 }
 
 /* ========== Hover area extension and arrow indicator ========== */
-/* Use ::before to extend hover area (invisible) so mouse can travel to flyout */
-/* 1) 先隱藏所有 item-label 的預設箭頭（保險） */
+/* Hide default arrow for item-labels and prepare space for custom arrow */
 .sidebar .item-label::after {
   display: none;
 }
 .sidebar .has-flyout > .item-label {
-  padding-right: 28px;      /* 只為有 flyout 的項目保留箭頭空間 */
+  padding-right: 28px; /* reserve space for arrow */
 }
 .sidebar .has-flyout::before {
   content: "";
   position: absolute;
   right: -18px; top: 0; bottom: 0;
-  width: 18px;              /* 若仍 flicker 可暫時調大到 24-30px 測試 */
+  width: 18px;
   pointer-events: auto;
-  /* 不設定背景或邊框，保持不可見 */
 }
 
+/* Custom arrow indicator using ::after on item-label */
 .sidebar .has-flyout > .item-label::after {
   content: "";
   position: absolute;
@@ -174,13 +257,13 @@ body {
   transform: translateY(-50%) translateX(4px) rotate(45deg);
   border-color: #ffd;
 }
-/* Arrow indicator on the right of item-label using ::after */
+
+/* Ensure item-label layout is stable */
 .sidebar .item-label {
-  /* 不在這裡加 padding-right，避免影響所有項目 */
   position: relative;
   padding-right: 0;
-  display: block;           /* 確保為 block，避免 inline 導致偽元素換行 */
-  white-space: nowrap;      /* 防止文字換行 */
+  display: block;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -192,7 +275,7 @@ body {
   opacity: 1;
 }
 
-/* Arrow hover animation */
+/* Arrow hover animation (redundant safe rule) */
 .sidebar .has-flyout:hover .item-label::after,
 .sidebar .has-flyout:focus-within .item-label::after {
   transform: translateY(-50%) translateX(4px) rotate(45deg);
@@ -230,6 +313,21 @@ body {
 
 /* breadcrumb / page title */
 .breadcrumb { color: #666; font-size: 14px; margin-bottom: 15px; }
+
+/* Breadcrumb link styles (remove underline, keep hover & focus for accessibility) */
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--dark-blue);
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb a:focus-visible {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* page title */
 .page-title { font-size: 26px; color: var(--dark-blue); margin-bottom: 20px; }
 
 /* ========== Listing / Filter / Grid ========== */
@@ -257,6 +355,25 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
+
+/* Unified button base for consistency */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  background: var(--brand-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* product card */
 .product-card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -320,15 +437,15 @@ body {
   padding: 25px;
   border: 1px solid var(--border);
 }
+
 /* 分類列固定在 main-content 內頂端 */
 .categories-bar {
   position: sticky;
   top: 12px;
-  z-index: 40; /* 低於 flyout 的 999 */
+  z-index: 40;
   padding: 8px 0;
   justify-content: space-between;
-  /* 與 sidebar 寬度一致，避免覆蓋 */
-  width: calc(100% - 220px); /* 只佔 main-content 區域 */
+  width: calc(100% - 220px);
 }
 
 /* 內部容器：一行 4 欄，桌面顯示 */
@@ -340,6 +457,7 @@ body {
   justify-content: space-between;
 }
 
+/* product-card as link-friendly block */
 .product-card {
   display: block;
   background: var(--white);
@@ -351,9 +469,11 @@ body {
   color: inherit;
 }
 .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.product-card:focus { outline: 3px solid rgba(46,163,242,0.25); outline-offset: 2px; }
+.product-card:focus { outline: 3px solid var(--focus-outline); outline-offset: 2px; }
 
-.detail-cta { cursor: pointer; }
+/* detail CTA */
+.detail-cta { cursor: pointer; text-decoration: none; color: inherit; }
+.detail-cta:focus-visible { outline: 3px solid var(--focus-outline); outline-offset: 2px; }
 
 /* 分類卡片外觀（可依你現有樣式微調） */
 .category-card {
@@ -375,6 +495,7 @@ body {
 .category-card .category-body { padding: 10px; }
 .category-card h3 { margin: 0 0 6px 0; font-size: 16px; color: #000000; }
 .category-card p { margin: 0; font-size: 13px; color: rgba(0, 0, 0, 0.85); }
+.category-card:focus { outline: 3px solid var(--focus-outline); outline-offset: 2px; }
 
 /* 響應式：小螢幕改成 2 欄或 1 欄 */
 @media (max-width: 900px) {
@@ -387,14 +508,34 @@ body {
 
 /* ========== Footer ========== */
 footer {
+  width: 100%;
   background: var(--brand-blue);
   color: var(--white);
   text-align: center;
-  padding: 20px;
+  padding: 20px 16px;
+  box-sizing: border-box;
   margin-top: auto;
 }
+footer .footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+/* Small screens: ensure main-content and footer spacing behave well */
+@media (max-width: 1024px) {
+  .main-content { margin-left: 0; padding: 20px; }
+}
 
+/* Accessibility: ensure footer links (if any) are visible and focusable */
+footer a {
+  color: var(--white);
+  text-decoration: underline;
+}
+footer a:focus-visible {
+  outline: 3px solid rgba(255,255,255,0.18);
+  outline-offset: 2px;
+}
 /* ========== Responsive tweaks ========== */
 @media (max-width: 1024px) {
   .sidebar { position: static; width: 100%; height: auto; top: 0; }

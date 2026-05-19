@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { products } from '../src/data/products'; // 調整路徑到你的 products 檔案
+import { products } from '../src/data/products';
 
 const QUOTE_KEY = 'quoteItems';
 
@@ -49,7 +49,6 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  // 建議：根據 query 過濾 products 的 title 或 model
   useEffect(() => {
     const q = query.trim().toLowerCase();
     if (!q) {
@@ -58,18 +57,19 @@ const Header: React.FC = () => {
       setActiveIndex(-1);
       return;
     }
-    const matched = products.filter((p) => {
-      return (
-        (p.title && p.title.toLowerCase().includes(q)) ||
-        (p.model && p.model.toLowerCase().includes(q))
-      );
-    }).slice(0, MAX_SUGGESTIONS);
+    const matched = products
+      .filter((p) => {
+        return (
+          (p.title && p.title.toLowerCase().includes(q)) ||
+          (p.model && p.model.toLowerCase().includes(q))
+        );
+      })
+      .slice(0, MAX_SUGGESTIONS);
     setSuggestions(matched);
     setShowSuggestions(matched.length > 0);
     setActiveIndex(-1);
   }, [query]);
 
-  // 點選建議或按 Enter 導到 listing 或 product
   const goToSearch = (q: string) => {
     const trimmed = q.trim();
     if (!trimmed) return;
@@ -82,7 +82,6 @@ const Header: React.FC = () => {
     setShowSuggestions(false);
   };
 
-  // 鍵盤操作：上下選擇、Enter 選取、Esc 關閉
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!showSuggestions) {
       if (e.key === 'Enter') {
@@ -99,7 +98,6 @@ const Header: React.FC = () => {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (activeIndex >= 0 && suggestions[activeIndex]) {
-        // 若選到建議，直接進 product detail
         goToProduct(suggestions[activeIndex].id);
       } else {
         goToSearch(query);
@@ -110,7 +108,6 @@ const Header: React.FC = () => {
     }
   };
 
-  // 點擊外部關閉建議
   useEffect(() => {
     const onDocClick = (ev: MouseEvent) => {
       if (!containerRef.current) return;
@@ -124,46 +121,34 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="top-header" style={{ background: '#003087', padding: 12 }}>
-      <div className="header-inner" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ flex: 1, position: 'relative' }} ref={containerRef}>
+    <header className="top-header">
+      <div className="header-inner">
+        {/* 搜尋區塊（縮短寬度由 CSS 控制） */}
+        <div className="header-search" ref={containerRef} style={{ flex: '0 0 auto' }}>
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="搜尋型號或產品名稱..."
-            aria-label="搜尋型號或產品名稱"
-            style={{ width: '100%', padding: '8px 12px', borderRadius: 4, border: 'none' }}
+            placeholder="搜尋產品名稱 / search product name..."
             onFocus={() => { if (suggestions.length) setShowSuggestions(true); }}
+            className="header-search-input"
+            style={{
+              padding: '8px 10px',
+              borderRadius: 4,
+              border: 'none',
+              boxSizing: 'border-box',
+              width: '500px', // 預設寬度（可由 CSS 調整）
+              maxWidth: '40vw',
+            }}
           />
 
-          {/* 搜尋按鈕（放在右側） */}
-          <button
-            onClick={() => goToSearch(query)}
-            aria-label="搜尋"
-            style={{
-              position: 'absolute',
-              right: 6,
-              top: 6,
-              bottom: 6,
-              padding: '0 10px',
-              border: 'none',
-              background: '#2ea3f2',
-              color: '#000',
-              borderRadius: 4,
-              cursor: 'pointer',
-            }}
-          >
-            🔍
-          </button>
-
-          {/* 建議下拉 */}
           {showSuggestions && suggestions.length > 0 && (
             <ul
               role="listbox"
               aria-label="搜尋建議"
+              className="search-suggestions"
               style={{
                 position: 'absolute',
                 left: 0,
@@ -185,11 +170,11 @@ const Header: React.FC = () => {
                   role="option"
                   aria-selected={activeIndex === idx}
                   onMouseDown={(e) => {
-                    // use onMouseDown to avoid input blur before click
                     e.preventDefault();
                     goToProduct(s.id);
                   }}
                   onMouseEnter={() => setActiveIndex(idx)}
+                  className="search-suggestion-item"
                   style={{
                     padding: '8px 10px',
                     background: activeIndex === idx ? '#f0f8ff' : 'transparent',
@@ -205,28 +190,22 @@ const Header: React.FC = () => {
           )}
         </div>
 
-        <div className="right-group" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div className="contact-info" style={{ color: 'white', display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div className="right-group">
+          <div className="contact-info" aria-hidden>
             <span>☎ +852 2130 9227</span>
-            <a href="mailto:info@ceoshop.com.hk" style={{ color: 'white' }}>
-              ✉ info@ceoshop.com.hk
-            </a>
+            <a href="mailto:info@ceoshop.com.hk">✉ info@ceoshop.com.hk</a>
           </div>
 
-          <nav className="main-nav">
-            <ul style={{ display: 'flex', gap: 12, margin: 0, padding: 0, listStyle: 'none' }}>
+          <nav className="main-nav" aria-label="主選單">
+            <ul>
               <li>
-                <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
-                  主頁
-                </Link>
+                <Link to="/">主頁 / homepage</Link>
               </li>
             </ul>
           </nav>
 
-          <div className="cart" style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'white' }}>
-            <Link to="/quote" style={{ color: 'white', textDecoration: 'none' }}>
-              🛒
-            </Link>
+          <div className="cart" role="group" aria-label="報價清單">
+            <Link to="/quote" aria-label="報價清單">🛒</Link>
             <span style={{ fontWeight: 600 }}>{quoteCount} Items</span>
           </div>
         </div>

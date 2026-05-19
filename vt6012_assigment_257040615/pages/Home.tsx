@@ -1,14 +1,24 @@
 // src/pages/Home.tsx
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { categories, products } from '../src/data/products';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const hotProducts = products.slice(0, 3);
 
+  // 組成要傳給 ProductDetail 的 state（from 為目前路徑 + search）
+  const from = location.pathname + location.search;
+  const baseLinkState = {
+    from,
+    category: null,
+    subcategory: null,
+    q: null,
+  };
+
   const goToProduct = (id: string) => {
-    navigate(`/product/${encodeURIComponent(id)}`);
+    navigate(`/product/${encodeURIComponent(id)}`, { state: baseLinkState });
   };
 
   const onCardKeyDown = (e: React.KeyboardEvent, id: string) => {
@@ -68,9 +78,10 @@ const Home: React.FC = () => {
               <p className="model-code" style={{ margin: '8px 0' }}>{p.model}</p>
               <p style={{ marginBottom: 12 }}>{p.specs}</p>
 
-              {/* Detail 按鈕仍為 Link，stopPropagation 避免觸發父容器 onClick */}
+              {/* Detail 按鈕仍為 Link，並帶 state；stopPropagation 避免觸發父容器 onClick */}
               <Link
                 to={`/product/${encodeURIComponent(p.id)}`}
+                state={baseLinkState}
                 onClick={(e) => e.stopPropagation()}
                 className="detail-cta"
                 style={{
